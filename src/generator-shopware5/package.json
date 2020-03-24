@@ -1,0 +1,28 @@
+{
+  "name": "generator-shopware5",
+  "version": "1.0.0",
+  "description": "A generator for shopware 5",
+  "files": "index.js",
+  "scripts": [
+    "generators"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SvenMaack/yeoman_shopware5.git"
+  },
+  "keywords": [
+    "shopware",
+    "yeoman",
+    "symfony",
+    "doctrine"
+  ],
+  "author": "Sven Maack",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/SvenMaack/yeoman_shopware5/issues"
+  },
+  "homepage": "https://github.com/SvenMaack/yeoman_shopware5#readme",
+  "dependencies": {
+    "yeoman-generator": "^4.7.2"
+  }
+}
