@@ -61,6 +61,10 @@ It adds an optional EntityManager dependency.
 
 This will create a subscriber in the *Subscriber* foler with the choosen name. The subscriber will be registered in the *Resources/service.xml* file.
 
+* `yo shopware5:command`
+
+This will create a command in the *Commands* foler with the choosen name. The command will be registered in the *Resources/service.xml* file.
+
 
 ## FAQ
 
