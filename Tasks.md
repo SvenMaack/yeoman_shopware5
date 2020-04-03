@@ -9,7 +9,7 @@ The following tasks will be implemented in the next releases:
 - [x] Adding abstract service handling
 - [x] Code Style Tests for the generator itself
 - [x] **Command generator**
-- [ ] Adding implementation hints to the generated code
+- [x] Adding implementation hints to the generated code
 
 ----------Version 1.0.0----------
 
@@ -29,6 +29,7 @@ The following tasks will be implemented in the next releases:
 - [ ] **something with mail generator**
 - [ ] **Tests generator**
 - [ ] **Risk Management generator**
+- [ ] Adding own tag support for services
 - [ ] Code Style Tests for the generated code
 - [ ] Auto formatter for the code
 - [ ] **Upload it to (yeoman.io)[https://yeoman.io/]**

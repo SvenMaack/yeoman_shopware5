@@ -27,6 +27,16 @@ class <%=type%> implements SubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
+            /*
+            'Enlight_Controller_Action_PostDispatchSecure_Backend_Article' => 'postExtendBackendArticle',
+            'Enlight_Controller_Action_PreDispatch_Backend_Article' => 'preExtendBackendArticle',
+            'Enlight_Controller_Action_PostDispatchSecure_Frontend_Detail' => 'onFrontendDetailPostDispatch',
+            'Shopware_Controllers_Backend_Article::saveArticle::after' => 'afterArticleBackendSave',
+            'Shopware_Controllers_Frontend_Listing::indexAction::replace' => 'onReplaceListing',
+            'Shopware_Controllers_Frontend_Listing::indexAction::before' => 'onBeforeListing',
+            'Shopware_Modules_Order_SaveOrder_ProcessDetails' => 'onSaveOrder',
+            'Shopware_CronJob_Foo' => 'onFooCronjob',
+            */
         ];
     }
 
@@ -38,6 +48,13 @@ class <%=type%> implements SubscriberInterface
      */
     public function onFoo(Enlight_Event_EventArgs $args): array
     {
+        /** @var \Enlight_Controller_Action $subject */
+        $subject = $args->getSubject();
+
+        $view = $subject->View();
+
+        $id = $subject->Request()->getParams()['id'];
+
     	return [];
     }
 }

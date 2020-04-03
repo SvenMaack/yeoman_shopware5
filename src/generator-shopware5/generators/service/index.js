@@ -27,6 +27,11 @@ module.exports = class extends Generator {
                 name: 'injectModels',
                 message: 'Would you like to inject models?',
             },
+            {
+                type: 'confirm',
+                name: 'injectSnippets',
+                message: 'Would you like to inject snippets?',
+            },
         ]);
     }
 
@@ -54,16 +59,21 @@ module.exports = class extends Generator {
      * Adds the abstract service to the xml.
     **/
     addAbstractToXml() {
-        const injections = this.answers.injectModels ?
+        const models = this.answers.injectModels ?
             [
                 '<argument type="service" id="models"/>',
+            ] :
+            [];
+        const snippets = this.answers.injectSnippets ?
+            [
+                '<argument type="service" id="snippets"/>',
             ] :
             [];
 
         serviceHandler.addAbstractToXml(
             this.answers.pluginName,
             this.answers.serviceName,
-            injections,
+            models.concat(snippets),
         );
     }
 

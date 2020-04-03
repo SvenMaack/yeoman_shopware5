@@ -41,7 +41,7 @@ function addAbstractToXml(pluginName, serviceName, injections) {
             `\t\t<service id="${_createXmlId(pluginName, serviceName)}_abstract" abstract="true">${os.EOL}` +
             injections.map((injection) =>
                 `\t\t\t${injection}${os.EOL}`,
-            ).join() +
+            ).join('') +
             `\t\t</service>`,
     );
 
@@ -69,7 +69,7 @@ function addServiceToXml(pluginName, serviceName, appendAfter, tags) {
             `\t\t<service id="${xmlId}" class="%${xmlId}_class%" parent="${xmlId}_abstract">${os.EOL}` +
             tags.map((tag) =>
                 `\t\t\t${tag}${os.EOL}`,
-            ).join() +
+            ).join('') +
             `\t\t</service>`,
     );
 

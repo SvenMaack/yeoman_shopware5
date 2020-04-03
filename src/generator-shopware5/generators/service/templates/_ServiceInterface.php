@@ -11,4 +11,8 @@ namespace <%=pluginName%>\Components;
 
 interface <%=serviceName%>Interface
 {
+	/**
+	 * Foo
+	**/
+    public function foo(): void;
 }
