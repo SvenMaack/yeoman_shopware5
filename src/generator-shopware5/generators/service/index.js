@@ -9,6 +9,14 @@ module.exports = class extends Generator {
      * Propmts the user a few questions
     **/
     async prompting() {
+        // this generator will be called by many other generators, so if an option is passed
+        // it will skip the prompting and use the passedData as the answers.
+        if (typeof this.options.passedData !== 'undefined') {
+            this.answers = this.options.passedData;
+            this.answers.skipDummy = true;
+            return;
+        }
+
         this.answers = await this.prompt([
             {
                 type: 'input',
@@ -32,6 +40,12 @@ module.exports = class extends Generator {
                 name: 'injectSnippets',
                 message: 'Would you like to inject snippets?',
             },
+            {
+                type: 'input',
+                name: 'subfolder',
+                message: 'Name of a subfolder for the service without the trailing slash (can be empty)',
+                default: '',
+            },
         ]);
     }
 
@@ -41,6 +55,8 @@ module.exports = class extends Generator {
     init() {
         this.answers = {
             ...helpers.enrichAnswers(this.answers, this.answers.pluginName),
+            skipDummy: this.answers.skipDummy || false,
+            subfolderPath: this._getSubfolder(),
         };
     }
 
@@ -51,7 +67,7 @@ module.exports = class extends Generator {
         serviceHandler.addPathToXml(
             this.answers.pluginName,
             this.answers.serviceName,
-            'Components',
+            `Components${this.answers.subfolderPath}`,
         );
     }
 
@@ -95,7 +111,7 @@ module.exports = class extends Generator {
     addServiceFile() {
         this.fs.copyTpl(
             this.templatePath('_Service.php'),
-            this.destinationPath(`./${this.answers.pluginName}/Components/${this.answers.serviceName}.php`),
+            this.destinationPath(`./${this.answers.pluginName}/Components${this.answers.subfolderPath.replace(/\\/, '/')}/${this.answers.serviceName}.php`),
             this.answers,
         );
     }
@@ -106,8 +122,19 @@ module.exports = class extends Generator {
     addServiceFileInterface() {
         this.fs.copyTpl(
             this.templatePath('_ServiceInterface.php'),
-            this.destinationPath(`./${this.answers.pluginName}/Components/${this.answers.serviceName}Interface.php`),
+            this.destinationPath(`./${this.answers.pluginName}/Components${this.answers.subfolderPath.replace(/\\/, '/')}/${this.answers.serviceName}Interface.php`),
             this.answers,
         );
+    }
+
+    /**
+     * Returns the subfolder path or an empty string if not subfolder is specified
+     *
+     * @return {string}
+    **/
+    _getSubfolder() {
+        return this.answers.subfolder.length > 1 ?
+            `\\${this.answers.subfolder}` :
+            '';
     }
 };

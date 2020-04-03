@@ -7,12 +7,14 @@
  * Time: <%=time%>
  */
 
-namespace <%=pluginName%>\Components;
+namespace <%=pluginName%>\Components<%=subfolderPath%>;
 
 interface <%=serviceName%>Interface
 {
+    <%_ if (!skipDummy) { _%>
 	/**
 	 * Foo
 	**/
     public function foo(): void;
+    <%_ } _%>
 }

@@ -7,7 +7,7 @@
  * Time: <%=time%>
  */
 
-namespace <%=pluginName%>\Components;
+namespace <%=pluginName%>\Components<%=subfolderPath%>;
 
 <%_ if (injectModels) { _%>
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,13 +21,13 @@ class <%=serviceName%> implements <%=serviceName%>Interface
 	<%_ if (injectModels) { _%>
     /** @var EntityManagerInterface */
     private $entityManager;
-    <%_ } _%>
 
+    <%_ } _%>
     <%_ if (injectSnippets) { _%>
     /** @var SnippetManager */
     private $snippetManager;
-    <%_ } _%>
 
+    <%_ } _%>
     /**
      * <%=serviceName%> constructor.
      *
@@ -47,6 +47,7 @@ class <%=serviceName%> implements <%=serviceName%>Interface
         $this->snippetManager = $snippetManager;
         <%_ } _%>
     }
+    <%_ if (!skipDummy) { _%>
 
     /**
      * {@inheritDoc}
@@ -64,4 +65,5 @@ class <%=serviceName%> implements <%=serviceName%>Interface
         //$detailRepo = $this->entityManager->getRepository(Detail::class);
         <%_ } _%>
     }
+    <%_ } _%>
 }
