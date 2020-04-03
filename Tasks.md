@@ -7,14 +7,14 @@ The following tasks will be implemented in the next releases:
 - [x] **Subscriber generator**
 - [x] Improve Readme
 - [x] Adding abstract service handling
-- [ ] Code Style Tests for the generator itself
+- [x] Code Style Tests for the generator itself
 - [ ] **Cronjob generator**
-- [ ] Adding implementation hints to the generated codes
+- [ ] Adding implementation hints to the generated code
 
 ----------Version 1.0.0----------
 
 - [ ] **Config generator**
-- [ ] **plugin theme fodler generator**
+- [ ] **plugin theme folder generator**
 - [ ] **Model generator**
 - [ ] **Attribute generator**
 - [ ] **Config generator**

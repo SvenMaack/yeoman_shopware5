@@ -1,0 +1,1 @@
+./generator-shopware5/node_modules/.bin/eslint ./generator-shopware5/generators
