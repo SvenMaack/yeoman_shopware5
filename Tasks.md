@@ -8,7 +8,7 @@ The following tasks will be implemented in the next releases:
 - [x] Improve Readme
 - [x] Adding abstract service handling
 - [x] Code Style Tests for the generator itself
-- [ ] **Cronjob generator**
+- [x] **Command generator**
 - [ ] Adding implementation hints to the generated code
 
 ----------Version 1.0.0----------
