@@ -62,7 +62,7 @@ It adds an optional EntityManager dependency.
 This will create a subscriber in the *Subscriber* foler with the choosen name. The subscriber will be registered in the *Resources/service.xml* file.
 
 
-##FAQ
+## FAQ
 
 ##### Can I use this generator on existing plugins?
 
