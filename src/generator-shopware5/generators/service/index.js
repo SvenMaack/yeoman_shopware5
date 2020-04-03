@@ -36,9 +36,9 @@ module.exports = class extends Generator {
 		};
 	}
 
-	addPathToXml() {
+	addPathToXml(folder = 'Components') {
 		let file = `./${this.answers.pluginName}/Resources/services.xml`;
-		let path = `${this.answers.pluginName}\\Components\\${this.answers.serviceName}`;
+		let path = `${this.answers.pluginName}\\${folder}\\${this.answers.serviceName}`;
 
 		const results = helpers.replace(
 			file,
@@ -70,7 +70,7 @@ module.exports = class extends Generator {
 		}
 	}
 
-	addServiceToXml(appendAfter = 'Services') {
+	addServiceToXml(appendAfter = 'Services', content = '') {
 		let file = `./${this.answers.pluginName}/Resources/services.xml`;
 
 		const results = helpers.addAfter(
@@ -78,6 +78,7 @@ module.exports = class extends Generator {
 			`<!-- ${appendAfter} -->`,
 			`${os.EOL}`
 				+ `\t\t<service id="${this._createXmlId()}" class="%${this._createXmlId()}_class%" parent="${this._createXmlId()}_abstract">${os.EOL}`
+				+ (content.length > 0 ? `\t\t\t${content}` : ``)
 				+ `\t\t</service>`
 		);
 		if(!results.includes(file)) {

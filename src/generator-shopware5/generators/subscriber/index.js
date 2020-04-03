@@ -1,6 +1,7 @@
 'use strict';
 
 const Generator = require('./../service/index.js');
+const os = require("os");
 
 module.exports = class extends Generator {
 	 async prompting() {
@@ -58,7 +59,7 @@ module.exports = class extends Generator {
 	}
 
 	addPathToXml() {
-		super.addPathToXml();
+		super.addPathToXml('Subscriber');
 	}
 
 	addAbstractToXml() {
@@ -66,7 +67,7 @@ module.exports = class extends Generator {
 	}
 
 	addServiceToXml() {
-		super.addServiceToXml('Subscriber'); // add it below 'Subscriber'
+		super.addServiceToXml('Subscriber', `<tag name="shopware.event_subscriber"/>${os.EOL}`); // add it below 'Subscriber'
 	}
 
 	addSubscriberFile() {
