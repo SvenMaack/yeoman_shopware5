@@ -10,10 +10,12 @@ The following tasks will be implemented in the next releases:
 - [x] Code Style Tests for the generator itself
 - [x] **Command generator**
 - [x] Adding implementation hints to the generated code
+- [ ] **Config generator**
+- [ ] only add services if they don't exist yet
+- [ ] yosay 
 
 ----------Version 1.0.0----------
 
-- [ ] **Config generator**
 - [ ] **plugin theme folder generator**
 - [ ] **Model generator**
 - [ ] **Attribute generator**
