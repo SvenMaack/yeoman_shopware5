@@ -5,8 +5,8 @@ The following tasks will be implemented in the next releases:
 - [x] **Plugin generator**
 - [x] **Service generator**
 - [x] **Subscriber generator**
-- [x] Improving Readme
-- [x] Abstract service handling
+- [x] Improve Readme
+- [x] Adding abstract service handling
 - [ ] Code Style Tests for the generator itself
 - [ ] **Cronjob generator**
 - [ ] Adding implementation hints to the generated codes
