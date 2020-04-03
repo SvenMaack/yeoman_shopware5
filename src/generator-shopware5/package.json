@@ -23,6 +23,8 @@
   },
   "homepage": "https://github.com/SvenMaack/yeoman_shopware5#readme",
   "dependencies": {
+    "replace-in-file": "^5.0.2",
+    "snake-case": "^3.0.3",
     "yeoman-generator": "^4.7.2"
   }
 }
