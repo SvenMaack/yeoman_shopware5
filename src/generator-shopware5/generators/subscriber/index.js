@@ -58,6 +58,8 @@ module.exports = class extends Generator {
         this.answers = {
             ...helpers.enrichAnswers(this.answers, this.answers.pluginName),
         };
+
+        // this.answers.type += 'Subscriber';
     }
 
     /**
