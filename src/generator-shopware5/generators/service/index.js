@@ -1,10 +1,9 @@
 'use strict';
 
-const Generator = require('yeoman-generator');
 const fs = require('fs');
+const Generator = require('yeoman-generator');
 const helpers = require('./../helpers.js');
-const os = require("os");
-const snakeCase = require('snake-case');
+const serviceHandler = require('./../serviceHandler.js');
 
 module.exports = class extends Generator {
 	 async prompting() {
@@ -31,59 +30,37 @@ module.exports = class extends Generator {
 
 	init() {
 		this.answers = {
-			...helpers.enrichAnswers(this.answers, this.answers.pluginName),
-			serviceNameSnake: snakeCase.snakeCase(this.answers.serviceName).replace('Pm', '')
+			...helpers.enrichAnswers(this.answers, this.answers.pluginName)
 		};
 	}
 
-	addPathToXml(folder = 'Components') {
-		let file = `./${this.answers.pluginName}/Resources/services.xml`;
-		let path = `${this.answers.pluginName}\\${folder}\\${this.answers.serviceName}`;
-
-		const results = helpers.replace(
-			file,
-			/<parameters>/g,
-			`<parameters>${os.EOL}`
-				+ `\t\t<parameter key="${this._createXmlId()}_class">${path}</parameter>`
+	addPathToXml() {
+		serviceHandler.addPathToXml(
+			this.answers.pluginName,
+			this.answers.serviceName,
+			'Components'
 		);
-		if(!results.includes(file)) {
-			this.log("Error: Can't add parameter to service xml! Please validate the service xml manually.");
-		}
 	}
 
-	addAbstractToXml(addInjections = true) {
-		let file = `./${this.answers.pluginName}/Resources/services.xml`;
-		let injection = this.answers.injectModels && addInjections
-			? `\t\t\t<argument type="service" id="models"/>${os.EOL}` 
-			: ``;
+	addAbstractToXml() {
+		let injections = this.answers.injectModels
+			? ['<argument type="service" id="models"/>']
+			: [];
 
-		const results = helpers.addAfter(
-			file,
-			'<!-- Abstracts -->',
-			`${os.EOL}`
-				+ `\t\t<service id="${this._createXmlId()}_abstract" abstract="true">${os.EOL}`
-				+ injection
-				+ `\t\t</service>`
+		serviceHandler.addAbstractToXml(
+			this.answers.pluginName,
+			this.answers.serviceName,
+			injections
 		);
-		if(!results.includes(file)) {
-			this.log("Error: Can't add abstract service to service xml! Please validate the service xml manually.");
-		}
 	}
 
-	addServiceToXml(appendAfter = 'Services', content = '') {
-		let file = `./${this.answers.pluginName}/Resources/services.xml`;
-
-		const results = helpers.addAfter(
-			file,
-			`<!-- ${appendAfter} -->`,
-			`${os.EOL}`
-				+ `\t\t<service id="${this._createXmlId()}" class="%${this._createXmlId()}_class%" parent="${this._createXmlId()}_abstract">${os.EOL}`
-				+ (content.length > 0 ? `\t\t\t${content}` : ``)
-				+ `\t\t</service>`
+	addServiceToXml() {
+		serviceHandler.addServiceToXml(
+			this.answers.pluginName,
+			this.answers.serviceName,
+			'Services',
+			[]
 		);
-		if(!results.includes(file)) {
-			this.log("Error: Can't add service to service xml! Please validate the service xml manually.");
-		}
 	}
 
 	addServiceFile() {
@@ -100,11 +77,5 @@ module.exports = class extends Generator {
 			this.destinationPath(`./${this.answers.pluginName}/Components/${this.answers.serviceName}Interface.php`), 
 			this.answers
 		);
-	}
-
-
-
-	_createXmlId() {
-		return `pm.${this.answers.pluginNameSnake}.${this.answers.serviceNameSnake}`;
 	}
 };

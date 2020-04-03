@@ -1,7 +1,9 @@
 'use strict';
 
-const Generator = require('./../service/index.js');
-const os = require("os");
+const fs = require('fs');
+const Generator = require('yeoman-generator');
+const helpers = require('./../helpers.js');
+const serviceHandler = require('./../serviceHandler.js');
 
 module.exports = class extends Generator {
 	 async prompting() {
@@ -48,26 +50,36 @@ module.exports = class extends Generator {
 	}
 
 	init() {
-		console.log(this.answers);
-
 		this.answers = {
-			...this.answers,
-			serviceName: this.answers.type //the base class (service) used this as a name of the service.
+			...helpers.enrichAnswers(this.answers, this.answers.pluginName)
 		};
-
-		super.init();
 	}
 
 	addPathToXml() {
-		super.addPathToXml('Subscriber');
+		serviceHandler.addPathToXml(
+			this.answers.pluginName,
+			this.answers.type,
+			'Subscriber'
+		);
 	}
 
 	addAbstractToXml() {
-		super.addAbstractToXml(false); //don't inject stuff
+		serviceHandler.addAbstractToXml(
+			this.answers.pluginName,
+			this.answers.type,
+			[]
+		);
 	}
 
 	addServiceToXml() {
-		super.addServiceToXml('Subscriber', `<tag name="shopware.event_subscriber"/>${os.EOL}`); // add it below 'Subscriber'
+		serviceHandler.addServiceToXml(
+			this.answers.pluginName,
+			this.answers.type,
+			'Subscriber',
+			[
+				'<tag name="shopware.event_subscriber"/>'
+			]
+		);
 	}
 
 	addSubscriberFile() {

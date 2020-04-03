@@ -6,7 +6,7 @@ The following tasks will be implemented in the next releases:
 - [x] **Service generator**
 - [x] **Subscriber generator**
 - [x] Improving Readme
-- [ ] Abstract service handling
+- [x] Abstract service handling
 - [ ] Code Style Tests for the generator itself
 - [ ] **Cronjob generator**
 - [ ] Adding implementation hints to the generated codes
