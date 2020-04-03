@@ -10,6 +10,9 @@ The following tasks will be implemented in the next releases:
 - [ ] Code Style Tests for the generator itself
 - [ ] **Cronjob generator**
 - [ ] Adding implementation hints to the generated codes
+
+----------Version 1.0.0----------
+
 - [ ] **Config generator**
 - [ ] **plugin theme fodler generator**
 - [ ] **Model generator**
@@ -28,4 +31,4 @@ The following tasks will be implemented in the next releases:
 - [ ] **Risk Management generator**
 - [ ] Code Style Tests for the generated code
 - [ ] Auto formatter for the code
-- [ ] **Upload it to yeoman.io**
+- [ ] **Upload it to (yeoman.io)[https://yeoman.io/]**
