@@ -26,6 +26,7 @@ function enrichAnswers(answers, pluginName = '') {
 
 /**
  * Replaces all occurences from 'from' to 'to'
+ *
  * @param from string|array 
  * @param to string|array 
  * @param files string|array 
@@ -41,6 +42,13 @@ function replace(files, from, to) {
   	.map(result => result.file);
 }
 
+/** 
+ * Adds the 'add' after any occurence of 'after' in the 'file'
+ *
+ * @param from string|array 
+ * @param to string 
+ * @param files string
+**/
 function addAfter(file, after, add) {
 	return replace(
 		file,
@@ -53,4 +61,4 @@ module.exports = {
 	enrichAnswers,
 	replace,
 	addAfter
-} ;
+};
