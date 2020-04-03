@@ -34,7 +34,13 @@ in the *./src/* directory. This will link the current directory to your local np
 
 ### And coding style tests
 
-TBD
+To check the codestyle of this generator call
+
+```
+./src/codestyleChecker.sh
+```
+
+This will check the code against the [ESLint google](https://github.com/google/eslint-config-google) standard.
 
 ## USAGE
 
