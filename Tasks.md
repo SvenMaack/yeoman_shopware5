@@ -28,3 +28,4 @@ The following tasks will be implemented in the next releases:
 - [ ] **Risk Management generator**
 - [ ] Code Style Tests for the generated code
 - [ ] Auto formatter for the code
+- [ ] **Upload it to yeoman.io**
