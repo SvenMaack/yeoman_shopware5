@@ -38,11 +38,53 @@ TBD
 
 ## USAGE
 
-TBD
+This projects defines generators for several use cases. Every one of them will generate new files or add code to existing files. 
 
-## Contributing
+Please commit your current work before calling any of the generators. All of the generators should be called in plugin directory (either *custom/plugins* or *custom/project*). 
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+Every call of a generator will create a json file with the name *.yo-rc.json* inside the current directory. This file will save the last answers to any type of prompt and should therefore be ignored by git.
+
+### Generators
+
+* `yo shopware5`
+ 
+This will create a new plugin in the current directory. This will be the first step when using this generator. It will propmt the user for a name of the new plugin and the minimal supported shopare version - which will most likely by the current installed shopware version.
+
+The output of the command is a folder with the name of the plugin, the base PHP file and the plugin xml file and the logo file. Last but not least it creates the *Resources/service.xml* file, which will be used in most of the other generators.
+
+* `yo shopware5:service`
+
+This will create a service file together with it's interface and register it in the *Resources/service.xml* file. The service file will be inserted in the *Components* folder. 
+It adds an optional EntityManager dependency.
+
+* `yo shopware5:subscriber`
+
+This will create a subscriber in the *Subscriber* foler with the choosen name. The subscriber will be registered in the *Resources/service.xml* file.
+
+
+##FAQ
+
+##### Can I use this generator on existing plugins?
+
+Yes it is possible to use this generator on plugins that were not generated using this generator. But ensure that the *Resources/service.xml* exists and contains the following structure:
+
+```xml
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <parameters>
+    </parameters>
+    <services>
+        <!-- Abstracts -->
+
+        <!-- Commands -->
+
+        <!-- Services -->
+
+        <!-- Subscriber -->
+    </services>
+</container>
+```
 
 ## Versioning
 
@@ -53,6 +95,10 @@ This projects uses [SemVer](http://semver.org/) for versioning. For the versions
 * **Sven Maack** - *Initial work* - [Sven Maack](https://github.com/SvenMaack)
 
 See also the list of [contributors](https://github.com/SvenMaack/yeoman_shopware5/contributors) who participated in this project.
+
+## Incoming
+
+For the next tasks see the [Tasks](Tasks.md) file
 
 ## License
 
