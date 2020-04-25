@@ -12,37 +12,31 @@ namespace <%=pluginName%>\Commands;
 use Shopware\Commands\ShopwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-<%_ if (injectModels) { _%>
-use Doctrine\ORM\EntityManagerInterface;
+<% for (let i=0; i<injections.length; i++) { %>use <%=injections[i].path%>;
 <%_ } _%>
 
-/**
- * Created by PhpStorm.
- * User: pmSven
- * Date: 02.03.20
- * Time: 09:28
- */
 class <%=commandName%> extends ShopwareCommand
 {
-	<%_ if (injectModels) { _%>
-    /** @var EntityManagerInterface */
-    private $entityManager;
+<% for (let i=0; i<injections.length; i++) { %>    /** @var <%=injections[i].name%> */
+    private $<%=injections[i].varName%>;
 
-    <%_ } _%>
+<%_ } _%>
     /**
      * <%=commandName%> constructor.
      *
-     <%_ if (injectModels) { _%>
-     * @param EntityManagerInterface $entityManager
-     <%_ } _%>
      * @param string $name
+<% for (let i=0; i<injections.length; i++) { %>     * @param <%=injections[i].name%> $<%=injections[i].varName%>
+<%_ } _%>
      */
-    public function __construct(<%_ if (injectModels) { _%>EntityManagerInterface $entityManager, <%_ } _%>$name = NULL)
+    public function __construct(
+<% for (let i=0; i<injections.length; i++) { %>        <%=injections[i].name%> $<%=injections[i].varName%>,
+<%_ } _%>
+        $name = NULL
+    )
     {
         parent::__construct($name);
-    	<%_ if (injectModels) { _%>
-        $this->entityManager = $entityManager;
-        <%_ } _%>
+<% for (let i=0; i<injections.length; i++) { %>        $this-><%=injections[i].varName%> = $<%=injections[i].varName%>;
+<%_ } _%>
     }
 
     /**

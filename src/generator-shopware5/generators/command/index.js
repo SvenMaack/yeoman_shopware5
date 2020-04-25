@@ -1,50 +1,51 @@
 'use strict';
 
-const Generator = require('yeoman-generator');
 const helpers = require('./../helpers.js');
+const MsGenerator = require('./../abstractGenerator.js');
 const serviceHandler = require('./../serviceHandler.js');
+const yosay = require('yosay');
+const chalk = require('chalk');
 
-module.exports = class extends Generator {
+module.exports = class extends MsGenerator {
     /**
      * Propmts the user a few questions
     **/
     async prompting() {
-        this.answers = await this.prompt([
+        this.log(yosay(chalk.blue(`Let's create an command skeleton for you.`)));
+
+        const prompts = [
             {
                 type: 'input',
                 name: 'pluginName',
-                message: 'plugin name',
+                message: `Which ${chalk.blue('plugin')} should be modified?`,
                 default: this.appname, // Default to current folder name
                 store: true,
             },
             {
                 type: 'input',
                 name: 'commandName',
-                message: 'command name',
+                message: `What is the ${chalk.blue('name')} of the command class?`,
             },
             {
                 type: 'input',
                 name: 'commandCallString',
-                message: 'the argument to start the command',
+                message: `Please specify the name to ${chalk.blue('call the command')}:`,
                 default: 'pm:entity/service:action',
             },
             {
                 type: 'input',
                 name: 'commandDescription',
-                message: 'the description for the command',
+                message: `What is the ${chalk.blue('description')} for the command?`,
             },
             {
                 type: 'input',
                 name: 'commandHelp',
-                message: 'The help text for the command',
+                message: `And what ist the ${chalk.blue('help text')} for the command?`,
                 default: 'The ommand creates ...',
             },
-            {
-                type: 'confirm',
-                name: 'injectModels',
-                message: 'Would you like to inject models?',
-            },
-        ]);
+        ];
+
+        await this.askForInjections(prompts);
     }
 
     /**
@@ -53,6 +54,7 @@ module.exports = class extends Generator {
     init() {
         this.answers = {
             ...helpers.enrichAnswers(this.answers, this.answers.pluginName),
+            injections: this.injections,
         };
 
         // this.answers.commandName += 'Command';
@@ -76,7 +78,9 @@ module.exports = class extends Generator {
         serviceHandler.addAbstractToXml(
             this.answers.pluginName,
             this.answers.commandName,
-            [],
+            this.injections.map((injection) =>
+                `<argument type="service" id="${injection.id}"/>`,
+            ),
         );
     }
 
@@ -103,5 +107,12 @@ module.exports = class extends Generator {
             this.destinationPath(`./${this.answers.pluginName}/Commands/${this.answers.commandName}.php`),
             this.answers,
         );
+    }
+
+    /**
+     * Show a hint to the user at the end.
+    **/
+    showfinalHint() {
+        this.log(yosay(`Everything done. What about creating a service using ${chalk.blue(`yo:shopware:service`)} and use it inside the ${chalk.blue(`${this.answers.pluginName}/Commands/${this.answers.commandName}.php`)} execution method?`));
     }
 };

@@ -1,26 +1,31 @@
 'use strict';
 
-const Generator = require('yeoman-generator');
+const MsGenerator = require('./../abstractGenerator.js');
 const fs = require('fs');
+const os = require('os');
+const yosay = require('yosay');
+const chalk = require('chalk');
 const helpers = require('./../helpers.js');
 
-module.exports = class extends Generator {
+module.exports = class extends MsGenerator {
     /**
      * Propmts the user a few questions
     **/
     async prompting() {
+        this.log(yosay(`Welcome to the great Shopware 5 generator.${os.EOL}` + chalk.blue(`Let's create a plugin skeleton for you.`)));
+
         this.answers = await this.prompt([
             {
                 type: 'input',
                 name: 'pluginName',
-                message: 'Name of the plugin.',
+                message: `What is the ${chalk.blue('name')} of the plugin:`,
                 default: this.appname, // Default to current folder name
                 store: true,
             },
             {
                 type: 'input',
                 name: 'minVersion',
-                message: 'minimal shopware version',
+                message: `Specify the minimal supported  ${chalk.blue('shopware version')}:`,
                 default: '5.6.4',
                 store: true,
             },

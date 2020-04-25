@@ -11,14 +11,30 @@ namespace <%=pluginName%>\Subscriber;
 
 use Enlight\Event\SubscriberInterface;
 use Enlight_Event_EventArgs;
+use Enlight_Controller_Action;
+<% for (let i=0; i<injections.length; i++) { %>use <%=injections[i].path%>;
+<%_ } _%>
 
 class <%=type%> implements SubscriberInterface
 {
+<% for (let i=0; i<injections.length; i++) { %>    /** @var <%=injections[i].name%> */
+    private $<%=injections[i].varName%>;
+
+<%_ } _%>
     /**
      * <%=type%> Subscriber constructor.
+     *
+<% for (let i=0; i<injections.length; i++) { %>     * @param <%=injections[i].name%> $<%=injections[i].varName%>
+<%_ } _%>
      */
-    public function __construct()
+    public function __construct(
+<% for (let i=0; i<injections.length; i++) { %>        <%=injections[i].name%> $<%=injections[i].varName%><%_ if (i < (injections.length - 1)) { _%>,<%_ } _%>
+
+<%_ } _%>
+    )
     {
+<% for (let i=0; i<injections.length; i++) { %>        $this-><%=injections[i].varName%> = $<%=injections[i].varName%>;
+<%_ } _%>
     }
 
     /**
@@ -48,7 +64,7 @@ class <%=type%> implements SubscriberInterface
      */
     public function onFoo(Enlight_Event_EventArgs $args): array
     {
-        /** @var \Enlight_Controller_Action $subject */
+        /** @var Enlight_Controller_Action $subject */
         $subject = $args->getSubject();
 
         $view = $subject->View();

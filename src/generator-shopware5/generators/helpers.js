@@ -1,3 +1,4 @@
+'use strict';
 
 const snakeCase = require('snake-case');
 const replaceLib = require('replace-in-file');
@@ -15,7 +16,7 @@ function enrichAnswers(answers, pluginName = '') {
     const date = ('0' + dateOb.getDate()).slice(-2);
     const month = ('0' + (dateOb.getMonth() + 1)).slice(-2);
     const year = dateOb.getFullYear();
-    const hours = dateOb.getHours();
+    const hours = ('0' + dateOb.getHours()).slice(-2);
     const minutes = ('0' + dateOb.getMinutes()).slice(-2);
 
     return {

@@ -16,6 +16,6 @@
     },
     "rules": {
         "indent": ["error", 4],
-        "max-len": ["error", { "code": 200 }]
+        "max-len": ["error", { "code": 2000 }]
     }
 }

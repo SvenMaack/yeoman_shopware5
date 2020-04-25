@@ -23,9 +23,12 @@
   },
   "homepage": "https://github.com/SvenMaack/yeoman_shopware5#readme",
   "dependencies": {
+    "camel-case": "^4.1.1",
+    "chalk": "^4.0.0",
     "replace-in-file": "^5.0.2",
     "snake-case": "^3.0.3",
-    "yeoman-generator": "^4.7.2"
+    "yeoman-generator": "^4.7.2",
+    "yosay": "^2.0.2"
   },
   "devDependencies": {
     "eslint": "^6.8.0",

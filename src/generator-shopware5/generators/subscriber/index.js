@@ -1,26 +1,30 @@
 'use strict';
 
-const Generator = require('yeoman-generator');
+const MsGenerator = require('./../abstractGenerator.js');
 const helpers = require('./../helpers.js');
 const serviceHandler = require('./../serviceHandler.js');
+const yosay = require('yosay');
+const chalk = require('chalk');
 
-module.exports = class extends Generator {
+module.exports = class extends MsGenerator {
     /**
      * Propmts the user a few questions
     **/
     async prompting() {
-        this.answers = await this.prompt([
+        this.log(yosay(chalk.blue(`Let's create a subscriber skeleton for you.`)));
+
+        const prompts = [
             {
                 type: 'input',
                 name: 'pluginName',
-                message: 'plugin name',
+                message: `Which ${chalk.blue('plugin')} should be modified?`,
                 default: this.appname, // Default to current folder name
                 store: true,
             },
             {
                 type: 'list',
                 name: 'type',
-                message: 'Type of Subscriber',
+                message: `What ${chalk.blue('type')} of subscriber do you want to create?`,
                 choices: [
                     {
                         name: 'Frontend',
@@ -41,14 +45,12 @@ module.exports = class extends Generator {
                     {
                         name: 'Core (rarely used)',
                         value: 'Core',
-                    },
-                    {
-                        name: 'Cronjob',
-                        value: 'Cronjob',
-                    },
+                    }
                 ],
             },
-        ]);
+        ];
+
+        await this.askForInjections(prompts);
     }
 
     /**
@@ -57,6 +59,7 @@ module.exports = class extends Generator {
     init() {
         this.answers = {
             ...helpers.enrichAnswers(this.answers, this.answers.pluginName),
+            injections: this.injections,
         };
 
         // this.answers.type += 'Subscriber';
@@ -80,7 +83,9 @@ module.exports = class extends Generator {
         serviceHandler.addAbstractToXml(
             this.answers.pluginName,
             this.answers.type,
-            [],
+            this.injections.map((injection) =>
+                `<argument type="service" id="${injection.id}"/>`,
+            ),
         );
     }
 
@@ -107,5 +112,12 @@ module.exports = class extends Generator {
             this.destinationPath(`./${this.answers.pluginName}/Subscriber/${this.answers.type}.php`),
             this.answers,
         );
+    }
+
+    /**
+     * Show a hint to the user at the end.
+    **/
+    showfinalHint() {
+        this.log(yosay(`Everything done. What about creating a service using ${chalk.blue(`yo:shopware:service`)}?`));
     }
 };
